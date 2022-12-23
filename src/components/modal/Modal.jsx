@@ -1,3 +1,5 @@
+import "./Modal.css"
+
 const Modal = ({ children, isOpen, onClose }) => {
     return (isOpen && (
         <div className="react-modal-overlay" onClick={onClose}>
