@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useContext, createContext } from "react";
 import { useSpring, animated, useTransition } from "@react-spring/web";
 import "./Modal.css"
+
+const ModalContext = createContext()
 
 const Modal = ({ children, isOpen, onClose }) => {
     const handleEscape = e => {
@@ -36,12 +38,53 @@ const Modal = ({ children, isOpen, onClose }) => {
         <animated.div style={styles} className="react-modal-overlay" onClick={onClose}>
             <animated.div style={springs} className="react-modal-wrapper" onClick={e => e.stopPropagation()}>
                 <div className="react-modal-content">
-                    {children}
-                    <button type="button" onClick={onClose}>Close</button>
+                    <ModalContext.Provider value={{ onClose }}>
+                        {children}
+                    </ModalContext.Provider>
                 </div>
             </animated.div>
         </animated.div>
     ))
 }
+
+const DismissButton = ({ children, className }) => {
+    const { onClose } = useContext(ModalContext)
+
+    return (
+        <button type="button" className={className} onClick={onClose}>
+            {children}
+        </button>
+    )
+}
+
+const ModalHeader = ({ children }) => {
+    return (
+        <div className="react-modal-header">
+            <div className="react-modal-title">{children}</div>
+            <DismissButton className="btn-close">&times;</DismissButton>
+        </div>
+    )
+}
+
+const ModalBody = ({ children }) => {
+    return (
+        <div className="react-modal-body">
+            {children}
+        </div>
+    )
+}
+
+const ModalFooter = ({ children }) => {
+    return (
+        <div className="react-modal-footer">
+            {children}
+        </div>
+    )
+}
+
+Modal.Header = ModalHeader
+Modal.Body = ModalBody
+Modal.Footer = ModalFooter
+Modal.DismissButton = DismissButton
 
 export default Modal
