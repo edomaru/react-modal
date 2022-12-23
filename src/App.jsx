@@ -15,8 +15,8 @@ function App() {
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque harum ea facere commodi neque nihil ratione eaque maiores quam odit laboriosam totam placeat veniam at, optio cupiditate autem labore! Reiciendis.</p>
         </Modal.Body>
         <Modal.Footer>
-          <Modal.DismissButton>Close</Modal.DismissButton>
-          <button>Save Changes</button>
+          <Modal.DismissButton className="btn btn-secondary">Close</Modal.DismissButton>
+          <button className="btn btn-primary">Save Changes</button>
         </Modal.Footer>
       </Modal>
     </>
